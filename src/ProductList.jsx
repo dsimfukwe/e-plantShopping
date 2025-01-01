@@ -252,8 +252,22 @@ const handlePlantsClick = (e) => {
     e.preventDefault();
     setShowCart(false);
   };
+
+  const handleRemoveItem = (e) => {
+    //e.preventDefault();
+    //console.log(e);
+    setAddedToCart((prevState) => ({
+        ...prevState,
+        [e]: false, // Set the product name as key and value as true to indicate it's added to cart
+      }));
+  };
   
   const handleAddToCart = (product) => {
+    //console.log(addedToCart.find((item) => item.name === product.name));
+    //console.log(addedToCart);
+    if(addedToCart[product.name] === true){
+        return;        
+    }
     dispatch(addItem(product));
     setAddedToCart((prevState) => ({
        ...prevState,
@@ -292,7 +306,7 @@ const handlePlantsClick = (e) => {
                             <img className="product-image" src={plant.image} alt={plant.name} />
                             <div className="product-title">{plant.name}</div>
                             {/*Similarly like the above plant.name show other details like description and cost*/}
-                            <button  className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                            <button  className={ addedToCart[plant.name]? "product-button added-to-cart btn-disabled" :"product-button"} onClick={() => handleAddToCart(plant)}>Add to Cart</button>
                         </div>
                         ))}
                     </div>
@@ -301,7 +315,7 @@ const handlePlantsClick = (e) => {
 
         </div>
  ) :  (
-    <CartItem onContinueShopping={handleContinueShopping}/>
+    <CartItem onContinueShopping={handleContinueShopping} onRemoval={handleRemoveItem}/>
 )}
     </div>
     );
