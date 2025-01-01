@@ -20,8 +20,9 @@ export const CartSlice = createSlice({
       } 
     },
     removeItem: (state, action) => {
-      //console.log(action.payload.name);
+      console.log(state.cartTotal);
       state.items = state.items.filter(item => item.name !== action.payload.name);
+      console.log(action.payload);
       state.cartTotal -= action.payload.quantity;
     },
     updateQuantity: (state, action) => {
@@ -37,7 +38,9 @@ export const CartSlice = createSlice({
       if(act === "plus"){
         state.cartTotal++;
       }else if (act === "minus"){
-        state.cartTotal--;
+        if(state.cartTotal && state.cartTotal > 0){
+          state.cartTotal--;
+        }        
       }
 
     },

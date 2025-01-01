@@ -39,7 +39,7 @@ const CartItem = ({ onContinueShopping, onRemoval }) => {
       dispatch(updateQuantity({name: item.name, quantity: item.quantity - 1}));
       dispatch(updateCartQ("minus"));
     } else{
-      dispatch(removeItem({name: item.name}));
+      dispatch(removeItem({name: item.name, quantity: 1}));
       onRemoval(item.name);
     }
    
